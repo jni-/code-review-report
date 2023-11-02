@@ -10,7 +10,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="ca.ulaval.glo4002.codereview.toolWindow.CodeReviewPreviewWindowFactory"
-                id="CodeReviewToolWindow" icon="ca.ulaval.glo4002.codereview.icons.AllIcons.CodeReview"/>
+                id="CodeReviewToolWindow" icon="ca.ulaval.glo4002.codereview.icons.AllIcons.CodeReviewToolIcon"/>
         <applicationConfigurable parentId="tools" id="ca.ulaval.glo4002.codereview.PluginSettings"
                 displayName="Code Review" instance="ca.ulaval.glo4002.codereview.settings.CodeReviewSettings"/>
         <codeInsight.lineMarkerProvider language=""
