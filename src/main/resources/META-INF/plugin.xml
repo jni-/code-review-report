@@ -1,18 +1,57 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>org.jetbrains.plugins.template</id>
-    <name>IntelliJ Platform Plugin Template</name>
-    <vendor>JetBrains</vendor>
+    <id>ca.ulaval.glo4002.codereview</id>
+    <name>Code Review Report</name>
+    <vendor>Jni</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="org.jetbrains.plugins.template.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <toolWindow factoryClass="ca.ulaval.glo4002.codereview.toolWindow.CodeReviewPreviewWindowFactory"
+                id="CodeReviewToolWindow" icon="ca.ulaval.glo4002.codereview.icons.AllIcons.CodeReview"/>
+        <applicationConfigurable parentId="tools" id="ca.ulaval.glo4002.codereview.PluginSettings"
+                displayName="Code Review" instance="ca.ulaval.glo4002.codereview.settings.CodeReviewSettings"/>
+        <codeInsight.lineMarkerProvider language=""
+                implementationClass="ca.ulaval.glo4002.codereview.markers.CodeReviewLineMarker"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="org.jetbrains.plugins.template.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener class="ca.ulaval.glo4002.codereview.listeners.ReloadProjectApplicationActivationListener"
+                topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
+
+    <actions>
+        <group id="ca.ulaval.glo4002.codereview"
+                text="Code Review Report"
+                popup="true"
+                icon="ca.ulaval.glo4002.codereview.icons.AllIcons.CodeReview">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+
+            <action id="ca.ulaval.glo4002.codereview.actions.AddLineCommentAction"
+                    class="ca.ulaval.glo4002.codereview.actions.AddLineCommentAction"
+                    text="Add Line Comment"
+                    description="Adds a comment to a certain line">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 6"/>
+            </action>
+            <action id="ca.ulaval.glo4002.codereview.actions.AddRepeatedCommentAction"
+                    class="ca.ulaval.glo4002.codereview.actions.AddRepeatedCommentAction"
+                    text="Add Example to Repeated Comment"
+                    description="Add an example to a repeated comment">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 5"/>
+            </action>
+            <action id="ca.ulaval.glo4002.codereview.actions.AddGeneralCommentAction"
+                    class="ca.ulaval.glo4002.codereview.actions.AddGeneralCommentAction"
+                    text="Add General Comment"
+                    description="Add a general comment">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 4"/>
+            </action>
+            <action id="ca.ulaval.glo4002.codereview.actions.GenerateReport"
+                    class="ca.ulaval.glo4002.codereview.actions.GenerateReportAction"
+                    text="Generate Report"
+                    description="Generates an HTML report in the project">
+            </action>
+        </group>
+    </actions>
 </idea-plugin>

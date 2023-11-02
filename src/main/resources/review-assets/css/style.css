@@ -1,0 +1,168 @@
+#wrapper {
+	width: 55%;
+}
+
+h1 {
+	text-align: center;
+}
+
+#file-reviews ul {
+	display: none;
+}
+
+h3.foldable {
+	padding-left: 20px;
+	cursor: pointer;
+	background: transparent url(../images/arrow.gif) no-repeat left center;
+}
+
+h3.foldable.unfold {
+	background: transparent url(../images/arrow-down.gif) no-repeat left
+		center;
+}
+
+#wrapper ul li {
+	margin-bottom: 10px;
+	padding-right: 5%;
+}
+
+#repeated-examples-description {
+    font-style: italic;
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid #aaa;
+    padding: 10px;
+    color: #555;
+}
+
+#wrapper ul li.repeated-comment {
+    padding-right: 0;
+}
+
+#wrapper ul li.repeated-comment ul {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#scroll-top {
+	display: none;
+	position: fixed;
+	bottom: 10px;
+	right: 20px;
+	cursor: pointer;
+	background: transparent url(../images/arrow-top.png) no-repeat;
+	width: 60px;
+	height: 60px;
+	z-index: 10;
+}
+
+#fold-controls {
+	position: fixed;
+	right: 100px;
+	bottom: 60px;
+	z-index: 20;
+	font-size: 0.8em;
+}
+
+#fold-controls span {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#fold-controls span:hover {
+	text-decoration: none;
+}
+
+#footer {
+	border: 1px solid black;
+	text-align: center;
+	margin: 10px 50px;
+}
+
+#legend {
+	list-style: none inside;
+}
+
+#legend li {
+	display: inline;
+}
+
+#tag-selectors,
+#severity-selectors {
+	position: fixed;
+	right: 87px;
+	z-index: 20;
+	font-size: 0.8em;
+}
+
+#tag-selectors {
+	bottom: 35px;
+}
+
+#severity-selectors {
+	bottom: 10px;
+}
+
+.tag-selector,
+.severity-selector {
+	cursor: pointer;
+	padding: 0 10px;
+	border-left: 1px solid black;
+}
+
+.tag-selector:hover,
+.severity-selector:hover {
+	text-decoration: underline;
+}
+
+.tag-selector.selected,
+.severity-selector.selected {
+	font-weight: bold;
+}
+
+#tag-selectors strong,
+#severity-selectors strong {
+	padding-right: 10px;
+}
+
+.show_snippet {
+	float: right;
+	cursor: pointer;
+}
+
+.snippet {
+	display: none;
+}
+
+#snippet_viewer {
+	width: 45%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	background-color: #c1c8cb;
+	padding: 10px;
+	overflow: auto;
+}
+
+#snippet_viewer .intro {
+	color: white;
+	font-weight: bold;
+	position: absolute;
+	top: 50%;
+	display: block;
+	margin-top: -15px;
+	height: 30px;
+	width: 90%;
+	text-align: center;
+}
+
+li.current_line {
+	background-color: #c1c8cb;
+}
+
+.syntaxhighlighter {
+	padding: 5px 0;
+	width: 90%;
+	margin: 0 auto;
+}
