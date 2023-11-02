@@ -3,9 +3,8 @@ package ca.ulaval.glo4002.codereview.settings
 import ca.ulaval.glo4002.codereview.settings.components.SettingsTable
 import com.intellij.openapi.options.Configurable
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.ui.dsl.builder.Align
 import com.intellij.ui.dsl.builder.panel
-import com.intellij.ui.dsl.gridLayout.HorizontalAlign
-import com.intellij.ui.dsl.gridLayout.VerticalAlign
 import org.jetbrains.annotations.Nls
 import javax.swing.JComponent
 
@@ -32,9 +31,9 @@ class CodeReviewSettings : Configurable {
             row {
                 cell(scrollPane)
                     .resizableColumn()
-                    .horizontalAlign(HorizontalAlign.FILL)
-                    .verticalAlign(VerticalAlign.FILL)
+                    .align(Align.FILL)
             }.resizableRow()
+
             row {
                 button("Add") {
                     table.addPredefinedRule()

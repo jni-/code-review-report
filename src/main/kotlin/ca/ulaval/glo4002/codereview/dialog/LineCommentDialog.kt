@@ -8,12 +8,7 @@ import ca.ulaval.glo4002.codereview.settings.COMMENT_DIALOG_DIMENSION_SERVICE_KE
 import com.intellij.openapi.observable.properties.AtomicLazyProperty
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.components.JBTextField
-import com.intellij.ui.dsl.builder.bindSelected
-import com.intellij.ui.dsl.builder.bindText
-import com.intellij.ui.dsl.builder.panel
-import com.intellij.ui.dsl.builder.whenTextChangedFromUi
-import com.intellij.ui.dsl.gridLayout.HorizontalAlign
-import com.intellij.ui.dsl.gridLayout.VerticalAlign
+import com.intellij.ui.dsl.builder.*
 import org.jetbrains.plugins.template.MyBundle
 import java.awt.event.*
 import javax.swing.*
@@ -82,14 +77,13 @@ class LineCommentDialog(
                     }
                     .focused()
                     .resizableColumn()
-                    .horizontalAlign(HorizontalAlign.FILL)
+                    .align(AlignX.FILL)
             }
 
             row {
                 scrollCell(table)
                     .resizableColumn()
-                    .horizontalAlign(HorizontalAlign.FILL)
-                    .verticalAlign(VerticalAlign.FILL)
+                    .align(Align.FILL)
             }.resizableRow()
 
             row {

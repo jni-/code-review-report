@@ -22,12 +22,12 @@ import org.jetbrains.plugins.template.MyBundle
 import javax.swing.Icon
 
 class CodeReviewLineMarker : LineMarkerProviderDescriptor() {
-    private val project = ProjectManager.getInstance().openProjects[0]
-    private val service: CodeReviewService = project.service<CodeReviewService>()
-    private val messageBus = project.messageBus
+    private val project = ProjectManager.getInstance().openProjects.getOrElse(0) { null }
+    private val service: CodeReviewService? = project?.service<CodeReviewService>()
+    private val messageBus = project?.messageBus
 
     init {
-        messageBus.connect().subscribe(ReviewChangedListener.TOPIC, object : ReviewChangedListener {
+        messageBus?.connect()?.subscribe(ReviewChangedListener.TOPIC, object : ReviewChangedListener {
             override fun onReviewChanged(review: Review) {
                 DaemonCodeAnalyzer.getInstance(project).restart()
             }
@@ -42,6 +42,10 @@ class CodeReviewLineMarker : LineMarkerProviderDescriptor() {
         elements: MutableList<out PsiElement>,
         result: MutableCollection<in LineMarkerInfo<*>>
     ) {
+        if (service == null || project == null || messageBus == null) {
+            return
+        }
+
         val review = service.getReview()
         elements
             .filterIsInstance<PsiFile>()

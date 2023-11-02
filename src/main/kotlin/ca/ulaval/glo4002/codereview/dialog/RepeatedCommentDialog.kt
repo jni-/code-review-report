@@ -5,10 +5,10 @@ import ca.ulaval.glo4002.codereview.app.services.CodeReviewService
 import ca.ulaval.glo4002.codereview.dialog.components.RepeatedCommentsTable
 import ca.ulaval.glo4002.codereview.settings.REPEATED_COMMENT_DIALOG_DIMENSION_SERVICE_KEY
 import com.intellij.openapi.ui.DialogWrapper
+import com.intellij.ui.dsl.builder.Align
+import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.whenTextChangedFromUi
-import com.intellij.ui.dsl.gridLayout.HorizontalAlign
-import com.intellij.ui.dsl.gridLayout.VerticalAlign
 import org.jetbrains.plugins.template.MyBundle
 import java.awt.event.*
 import java.util.*
@@ -70,14 +70,13 @@ class RepeatedCommentDialog(
                     }
                     .focused()
                     .resizableColumn()
-                    .horizontalAlign(HorizontalAlign.FILL)
+                    .align(AlignX.FILL)
             }
 
             row {
                 scrollCell(table)
                     .resizableColumn()
-                    .horizontalAlign(HorizontalAlign.FILL)
-                    .verticalAlign(VerticalAlign.FILL)
+                    .align(Align.FILL)
             }.resizableRow()
 
             row {

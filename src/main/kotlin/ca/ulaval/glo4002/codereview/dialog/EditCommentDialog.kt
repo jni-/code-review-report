@@ -5,11 +5,7 @@ import ca.ulaval.glo4002.codereview.app.services.CodeReviewService
 import ca.ulaval.glo4002.codereview.settings.EDIT_COMMENT_DIALOG_DIMENSION_SERVICE_KEY
 import com.intellij.openapi.observable.properties.AtomicLazyProperty
 import com.intellij.openapi.ui.DialogWrapper
-import com.intellij.ui.dsl.builder.bindSelected
-import com.intellij.ui.dsl.builder.bindText
-import com.intellij.ui.dsl.builder.panel
-import com.intellij.ui.dsl.builder.whenTextChangedFromUi
-import com.intellij.ui.dsl.gridLayout.HorizontalAlign
+import com.intellij.ui.dsl.builder.*
 import org.jetbrains.plugins.template.MyBundle
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
@@ -64,7 +60,7 @@ class EditCommentDialog(
                     }
                     .focused()
                     .resizableColumn()
-                    .horizontalAlign(HorizontalAlign.FILL)
+                    .align(AlignX.FILL)
             }
 
             row {
