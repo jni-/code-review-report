@@ -17,11 +17,9 @@
 - [x] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
 
 <!-- Plugin description -->
-Helps us create code review for a course in university.
+Review code with ease without the need of external tools. This plugin was created to allow teachers to review code from students in a university course.
 
-This plugin is NOT ready for market yet. For example, all generated reports are in French.
-
-If you have interest in this plugin, please contact me and I might some day find the courage to translate everything.
+Currently, all reports generated are in French.
 
 <!-- Plugin description end -->
 

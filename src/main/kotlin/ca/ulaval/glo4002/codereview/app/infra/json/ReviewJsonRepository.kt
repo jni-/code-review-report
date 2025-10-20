@@ -3,14 +3,21 @@ package ca.ulaval.glo4002.codereview.app.infra.json
 import ca.ulaval.glo4002.codereview.app.model.Review
 import ca.ulaval.glo4002.codereview.bus.ReviewChangedListener
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.intellij.openapi.application.Application
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.openapi.progress.util.ReadTask
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.util.io.await
 import com.intellij.util.messages.MessageBus
+import kotlinx.coroutines.future.await
+import kotlinx.coroutines.runBlocking
 import java.nio.file.Path
+import java.util.concurrent.Callable
+import java.util.concurrent.Future
 
 private const val FILE_NAME = ".review.json"
 
@@ -43,8 +50,8 @@ class ReviewJsonRepository(
         messageBus.syncPublisher(ReviewChangedListener.TOPIC).onReviewChanged(review)
     }
 
-    override fun reload() {
-        val file = getReviewFile()
+    override fun reload() = runBlocking {
+        val file = getReviewFile()?.await()
 
         review = if (file != null && file.exists()) {
             val doc = FileDocumentManager.getInstance().getDocument(file)!!
@@ -61,9 +68,18 @@ class ReviewJsonRepository(
         messageBus.syncPublisher(ReviewChangedListener.TOPIC).onReviewChanged(review)
     }
 
-    private fun getReviewFile(): VirtualFile? = LocalFileSystem.getInstance()
-        .findFileByNioFile(Path.of(project.basePath!!))!!
-        .findChild(FILE_NAME)
+    private fun getReviewFile(): Future<VirtualFile?>? {
+        if (project.basePath == null) {
+            return null
+        }
+
+        return ApplicationManager.getApplication().executeOnPooledThread<VirtualFile?> {
+            val child: VirtualFile? = LocalFileSystem.getInstance()
+                .findFileByNioFile(Path.of(project.basePath!!))!!
+                .findChild(FILE_NAME)
+            child
+        }
+    }
 
     private fun getOrCreateReviewFile(): VirtualFile = LocalFileSystem.getInstance()
         .findFileByNioFile(Path.of(project.basePath!!))!!

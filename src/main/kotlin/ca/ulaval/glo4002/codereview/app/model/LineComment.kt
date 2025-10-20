@@ -10,22 +10,6 @@ data class LineComment(
     val context: LineCommentContext,
     val id: UUID = UUID.randomUUID()
 ) {
-    override fun equals(other: Any?): Boolean {
-        if (other !is LineComment) {
-            return false
-        }
-
-        return EqualsBuilder()
-            .append(comment, other.comment)
-            .append(context.file.path, other.context.file.path)
-            .append(context.lineStart, other.context.lineStart)
-            .append(context.lineEnd, other.context.lineEnd)
-            .isEquals
-    }
-
-    override fun hashCode(): Int {
-        return HashCodeBuilder().append(comment).append(context.file.path).append(context.lineStart).append(context.lineEnd).toHashCode()
-    }
 
     fun updateText(newText: String) {
         comment = newText
@@ -33,5 +17,25 @@ data class LineComment(
 
     fun updateIsImportant(isImportant: Boolean) {
         this.isImportant = isImportant
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is LineComment) return false
+
+        if (comment != other.comment) return false
+        if (context.file.path != other.context.file.path) return false
+        if (context.lineStart != other.context.lineStart) return false
+        if (context.lineEnd != other.context.lineEnd) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = context.file.path.hashCode()
+        result = 31 * result + comment.hashCode()
+        result = 31 * result + context.lineStart.hashCode()
+        result = 31 * result + context.lineEnd.hashCode()
+        return result
     }
 }
