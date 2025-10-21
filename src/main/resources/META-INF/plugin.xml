@@ -24,33 +24,24 @@
 
     <actions>
         <group id="ca.ulaval.glo4002.codereview"
-                text="Code Review Report"
                 popup="true"
                 icon="ca.ulaval.glo4002.codereview.icons.AllIcons.CodeReview">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
 
             <action id="ca.ulaval.glo4002.codereview.actions.AddLineCommentAction"
-                    class="ca.ulaval.glo4002.codereview.actions.AddLineCommentAction"
-                    text="Add Line Comment"
-                    description="Adds a comment to a certain line">
+                    class="ca.ulaval.glo4002.codereview.actions.AddLineCommentAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl 6"/>
             </action>
             <action id="ca.ulaval.glo4002.codereview.actions.AddRepeatedCommentAction"
-                    class="ca.ulaval.glo4002.codereview.actions.AddRepeatedCommentAction"
-                    text="Add Example to Repeated Comment"
-                    description="Add an example to a repeated comment">
+                    class="ca.ulaval.glo4002.codereview.actions.AddRepeatedCommentAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl 5"/>
             </action>
             <action id="ca.ulaval.glo4002.codereview.actions.AddGeneralCommentAction"
-                    class="ca.ulaval.glo4002.codereview.actions.AddGeneralCommentAction"
-                    text="Add General Comment"
-                    description="Add a general comment">
+                    class="ca.ulaval.glo4002.codereview.actions.AddGeneralCommentAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl 4"/>
             </action>
             <action id="ca.ulaval.glo4002.codereview.actions.GenerateReport"
-                    class="ca.ulaval.glo4002.codereview.actions.GenerateReportAction"
-                    text="Generate Report"
-                    description="Generates an HTML report in the project">
+                    class="ca.ulaval.glo4002.codereview.actions.GenerateReportAction">
             </action>
         </group>
     </actions>

@@ -7,9 +7,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.service
 
-class AddRepeatedCommentAction : AnAction(
-    "Add Repeated Comment"
-) {
+class AddRepeatedCommentAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
         LineContextExtractor.extractFromCursor(project)?.let {

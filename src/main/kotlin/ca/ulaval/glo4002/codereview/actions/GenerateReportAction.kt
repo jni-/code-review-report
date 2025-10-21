@@ -14,9 +14,7 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import java.nio.file.Path
 
-class GenerateReportAction : AnAction(
-    "Generate Report"
-) {
+class GenerateReportAction : AnAction() {
     private val assets: Map<String, List<String>> = mapOf(
         "css" to listOf("shCoreEclipse.css", "shThemeEclipse.css", "style.css"),
         "images" to listOf("Architecture.png", "arrow.gif", "arrow-down.gif", "arrow-top.png", "CleanCode.png", "Important.png", "Question.png", "snippet.png"),
