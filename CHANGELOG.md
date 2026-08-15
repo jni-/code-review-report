@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Updates the HTML report to give it a more modern look
+- Fixes deprecations
+- Fixes errors generated at IDE boot. It did not affect behavior, but it was annoying
+- Minimum IDE version bumped to 2025.3
+
 ## [1.0.1] - 2023-11-02
 
 ### Added

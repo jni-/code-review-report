@@ -12,14 +12,7 @@ import java.util.*
 @Service(Service.Level.PROJECT)
 class HtmlReviewGenerator(val project: Project) {
 
-    fun generate(review: Review): String = HtmlReviewBuilder()
-        .addHtmlHeaders(project.name)
-        .addH1Title(project.name)
-        .addGeneralComments(review.generalComments)
-        .addRepeatedComments(review.repeatedComments)
-        .addFileComments(review.lineComments)
-        .addFooter()
-        .build()
+    fun generate(review: Review): String = HtmlReviewBuilderV2(project.name).build(review)
 
     fun generateForTools(review: Review, selectedComment: UUID?): String = HtmlReviewBuilder()
         .setToolMode()

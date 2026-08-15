@@ -8,7 +8,12 @@ import com.intellij.openapi.wm.IdeFrame
 
 internal class ReloadProjectApplicationActivationListener : ApplicationActivationListener {
     override fun applicationActivated(ideFrame: IdeFrame) {
-        thisLogger().info("Projet reloaded: Reloading existing review if present")
-        ideFrame.project?.service<CodeReviewService>()?.reload()
+        val project = ideFrame.project ?: return
+        if (project.isDisposed || project.isDefault || !project.isInitialized) {
+            return
+        }
+
+        thisLogger().info("Project activated: Reloading existing review if present")
+        project.service<CodeReviewService>().reload()
     }
 }

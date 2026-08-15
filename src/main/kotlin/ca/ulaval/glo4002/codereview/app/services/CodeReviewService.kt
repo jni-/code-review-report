@@ -2,20 +2,31 @@ package ca.ulaval.glo4002.codereview.app.services
 
 import ca.ulaval.glo4002.codereview.app.infra.json.ReviewJsonRepository
 import ca.ulaval.glo4002.codereview.app.model.*
+import ca.ulaval.glo4002.codereview.bus.ReviewChangedListener
+import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
-import org.jetbrains.plugins.template.MyBundle
 import java.util.*
 
 @Service(Service.Level.PROJECT)
-class CodeReviewService(val project: Project) {
+class CodeReviewService(val project: Project) : Disposable {
     private val reviewRepository = project.service<ReviewJsonRepository>()
 
     init {
-        thisLogger().warn(MyBundle.message("projectService", project.name))
+        // Re-run highlighting so gutter markers reflect the latest review; the connection
+        // is disposed with this service, i.e. when the project closes.
+        project.messageBus.connect(this).subscribe(ReviewChangedListener.TOPIC, object : ReviewChangedListener {
+            override fun onReviewChanged(review: Review) {
+                if (!project.isDisposed) {
+                    DaemonCodeAnalyzer.getInstance(project).restart("Code review changed")
+                }
+            }
+        })
     }
+
+    override fun dispose() {}
 
     fun addComment(lineComment: LineComment) {
         val review = reviewRepository.getReview()

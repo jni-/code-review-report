@@ -1,7 +1,5 @@
 package ca.ulaval.glo4002.codereview.app.model
 
-import org.apache.commons.lang.builder.EqualsBuilder
-import org.apache.commons.lang.builder.HashCodeBuilder
 import java.util.*
 
 data class LineComment(

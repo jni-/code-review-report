@@ -5,9 +5,9 @@ import ca.ulaval.glo4002.codereview.bus.ReviewChangedListener
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.intellij.openapi.application.Application
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.fileEditor.FileDocumentManager
-import com.intellij.openapi.progress.util.ReadTask
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
@@ -53,14 +53,17 @@ class ReviewJsonRepository(
     override fun reload() = runBlocking {
         val file = getReviewFile()?.await()
 
-        review = if (file != null && file.exists()) {
-            val doc = FileDocumentManager.getInstance().getDocument(file)!!
-
-            if (doc.text.isNotEmpty()) {
-                mapper.readValue(doc.text, ReviewDto::class.java).toReview(project)
+        // Document access requires a read action; the EDT no longer has implicit read access.
+        val text = ReadAction.compute<String?, RuntimeException> {
+            if (file != null && file.isValid && file.exists()) {
+                FileDocumentManager.getInstance().getDocument(file)?.text
             } else {
-                Review()
+                null
             }
+        }
+
+        review = if (!text.isNullOrEmpty()) {
+            mapper.readValue(text, ReviewDto::class.java).toReview(project)
         } else {
             Review()
         }

@@ -16,8 +16,8 @@ import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.components.JBScrollPane
-import com.intellij.ui.components.htmlComponent
 import com.intellij.ui.content.ContentFactory
+import com.intellij.util.ui.SwingHelper
 import kotlinx.coroutines.runBlocking
 import java.awt.GridLayout
 import java.nio.file.Path
@@ -45,7 +45,7 @@ class CodeReviewPreviewWindowFactory : ToolWindowFactory {
         private val generator = toolWindow.project.service<HtmlReviewGenerator>()
 
         fun getContent() = JBPanel<JBPanel<*>>(GridLayout()).apply {
-            val bus = toolWindow.project.messageBus.connect()
+            val bus = toolWindow.project.messageBus.connect(toolWindow.disposable)
             bus.subscribe(ReviewChangedListener.TOPIC, object : ReviewChangedListener {
                 override fun onReviewChanged(review: Review) {
                     printCodeReview(review, null)
@@ -70,7 +70,11 @@ class CodeReviewPreviewWindowFactory : ToolWindowFactory {
             removeAll()
             val listener = Listener(service)
             val rawHtml = generator.generateForTools(review, selectedComment)
-            val html = htmlComponent(rawHtml, hyperlinkListener = listener)
+            val html = SwingHelper.createHtmlViewer(false, null, null, null).apply {
+                text = rawHtml
+                border = null
+                addHyperlinkListener(listener)
+            }
             add(JBScrollPane(html))
         }
 

@@ -27,7 +27,7 @@ repositories {
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 dependencies {
 //    implementation(libs.annotations)
-    implementation("org.json:json:20250517")
+    implementation("org.json:json:20260814")
     intellijPlatform {
         create(properties("platformType"), properties("platformVersion"), )
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.

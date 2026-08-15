@@ -4,5 +4,6 @@ sign.sh
 
 .gradle
 .idea
+.intellijPlatform
 .qodana
 build

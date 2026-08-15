@@ -1,6 +1,7 @@
 package ca.ulaval.glo4002.codereview.app.infra.code
 
 import ca.ulaval.glo4002.codereview.app.model.LineCommentContext
+import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.FileEditorManager
@@ -29,18 +30,19 @@ class LineContextExtractor {
             return null
         }
 
-        private fun getSnippet(document: Document, logicalStartLine: Int, logicalEndLine: Int): String {
-            val snippetStart = (logicalStartLine - 1 - LineCommentContext.SNIPPET_RANGE_AROUND)
-                .coerceAtLeast(0)
-                .let(document::getLineStartOffset)
-            val snippetEnd = (logicalEndLine - 1 + LineCommentContext.SNIPPET_RANGE_AROUND)
-                .coerceAtMost(document.lineCount - 1)
-                .let(document::getLineEndOffset)
+        private fun getSnippet(document: Document, logicalStartLine: Int, logicalEndLine: Int): String =
+            ReadAction.compute<String, RuntimeException> {
+                val snippetStart = (logicalStartLine - 1 - LineCommentContext.SNIPPET_RANGE_AROUND)
+                    .coerceAtLeast(0)
+                    .let(document::getLineStartOffset)
+                val snippetEnd = (logicalEndLine - 1 + LineCommentContext.SNIPPET_RANGE_AROUND)
+                    .coerceAtMost(document.lineCount - 1)
+                    .let(document::getLineEndOffset)
 
-            return TextRange.from(snippetStart, snippetEnd - snippetStart)
-                .let(document::getText)
-                .let(::prettifySnippet)
-        }
+                TextRange.from(snippetStart, snippetEnd - snippetStart)
+                    .let(document::getText)
+                    .let(::prettifySnippet)
+            }
 
         private fun prettifySnippet(text: String): String {
             return text.lines()
