@@ -1,11 +1,8 @@
 package ca.ulaval.glo4002.codereview.app.infra.html
 
-import ca.ulaval.glo4002.codereview.app.model.LineComment
 import ca.ulaval.glo4002.codereview.app.model.Review
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.Project
-import java.io.*
-import java.nio.charset.Charset
 import java.util.*
 
 

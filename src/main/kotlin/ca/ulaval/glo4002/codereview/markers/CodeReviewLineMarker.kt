@@ -14,7 +14,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.wm.ToolWindowManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import org.jetbrains.plugins.template.MyBundle
+import ca.ulaval.glo4002.codereview.MyBundle
 import javax.swing.Icon
 
 class CodeReviewLineMarker : LineMarkerProviderDescriptor() {

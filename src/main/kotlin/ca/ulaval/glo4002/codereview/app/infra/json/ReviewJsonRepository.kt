@@ -3,7 +3,6 @@ package ca.ulaval.glo4002.codereview.app.infra.json
 import ca.ulaval.glo4002.codereview.app.model.Review
 import ca.ulaval.glo4002.codereview.bus.ReviewChangedListener
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.intellij.openapi.application.Application
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.components.Service
@@ -13,10 +12,8 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.io.await
 import com.intellij.util.messages.MessageBus
-import kotlinx.coroutines.future.await
 import kotlinx.coroutines.runBlocking
 import java.nio.file.Path
-import java.util.concurrent.Callable
 import java.util.concurrent.Future
 
 private const val FILE_NAME = ".review.json"
@@ -44,6 +41,7 @@ class ReviewJsonRepository(
             val doc = FileDocumentManager.getInstance().getDocument(file)!!
 
             val dto = ReviewDto.fromReview(project, review)
+            @Suppress("UsePropertyAccessSyntax")
             doc.setText(mapper.writeValueAsString(dto))
         }
 

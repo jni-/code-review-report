@@ -29,7 +29,7 @@ dependencies {
 //    implementation(libs.annotations)
     implementation("org.json:json:20260814")
     intellijPlatform {
-        create(properties("platformType"), properties("platformVersion"), )
+        create(properties("platformType"), properties("platformVersion"))
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
 

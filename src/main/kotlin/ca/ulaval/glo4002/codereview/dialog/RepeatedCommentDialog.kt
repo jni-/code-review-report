@@ -9,11 +9,12 @@ import com.intellij.ui.dsl.builder.Align
 import com.intellij.ui.dsl.builder.AlignX
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.whenTextChangedFromUi
-import org.jetbrains.plugins.template.MyBundle
+import ca.ulaval.glo4002.codereview.MyBundle
 import java.awt.event.*
 import java.util.*
 import javax.swing.*
 
+@Suppress("UnstableApiUsage")
 class RepeatedCommentDialog(
     private val context: LineCommentContext,
     private val service: CodeReviewService

@@ -1,4 +1,4 @@
-package org.jetbrains.plugins.template
+package ca.ulaval.glo4002.codereview
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

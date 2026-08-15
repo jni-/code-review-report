@@ -5,11 +5,12 @@ import ca.ulaval.glo4002.codereview.settings.GENERAL_COMMENT_DIALOG_DIMENSION_SE
 import com.intellij.openapi.observable.properties.AtomicLazyProperty
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.dsl.builder.*
-import org.jetbrains.plugins.template.MyBundle
+import ca.ulaval.glo4002.codereview.MyBundle
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import javax.swing.*
 
+@Suppress("UnstableApiUsage")
 class GeneralCommentDialog(
     private val service: CodeReviewService
 ) : DialogWrapper(

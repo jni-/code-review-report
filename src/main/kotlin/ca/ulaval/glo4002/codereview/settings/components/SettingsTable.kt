@@ -12,11 +12,11 @@ class SettingsTable {
     private val columns = arrayOf(SettingsColumn("Predefined rule"))
     private val tableModel = ListTableModel(columns, mutableListOf<SettingsColumnModel>())
     private val listeners = mutableListOf<(e: TableModelEvent) -> Unit>()
-    val component: JBTable;
+    val component: JBTable
 
     init {
         component = JBTable(tableModel).apply {
-            tableModel.addTableModelListener { e -> listeners.forEach { it(e) }}
+            tableModel.addTableModelListener { e -> listeners.forEach { it(e) } }
             cellEditor = getCellEditor(this)
         }
     }
@@ -74,7 +74,7 @@ class SettingsTable {
     }
 
 
-    private inner class SettingsColumn(name: String) : EditableColumnInfo<SettingsColumnModel, String>(name) {
+    private class SettingsColumn(name: String) : EditableColumnInfo<SettingsColumnModel, String>(name) {
         override fun valueOf(item: SettingsColumnModel?): String? {
             return item?.value
         }

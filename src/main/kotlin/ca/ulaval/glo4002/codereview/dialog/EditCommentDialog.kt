@@ -6,12 +6,13 @@ import ca.ulaval.glo4002.codereview.settings.EDIT_COMMENT_DIALOG_DIMENSION_SERVI
 import com.intellij.openapi.observable.properties.AtomicLazyProperty
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.dsl.builder.*
-import org.jetbrains.plugins.template.MyBundle
+import ca.ulaval.glo4002.codereview.MyBundle
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 import java.util.*
 import javax.swing.JComponent
 
+@Suppress("UnstableApiUsage")
 class EditCommentDialog(
     private val id: UUID,
     private val initialComment: EditableComment,

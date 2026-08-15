@@ -9,10 +9,11 @@ import com.intellij.openapi.observable.properties.AtomicLazyProperty
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
-import org.jetbrains.plugins.template.MyBundle
+import ca.ulaval.glo4002.codereview.MyBundle
 import java.awt.event.*
 import javax.swing.*
 
+@Suppress("UnstableApiUsage")
 class LineCommentDialog(
     private val context: LineCommentContext,
     private val rules: List<String>,

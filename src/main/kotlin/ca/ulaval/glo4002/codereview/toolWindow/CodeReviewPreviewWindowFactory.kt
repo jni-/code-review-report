@@ -83,7 +83,7 @@ class CodeReviewPreviewWindowFactory : ToolWindowFactory {
                 if (e?.eventType == HyperlinkEvent.EventType.ACTIVATED) {
                 val project = this@Listener.service.project
                 val instance = FileEditorManager.getInstance(project)
-                    val url = e?.description
+                    val url = e.description
                 if (url != null && url.contains(":")) {
                     val command = url.split(":")[0]
                     val args = url.split(":")[1]

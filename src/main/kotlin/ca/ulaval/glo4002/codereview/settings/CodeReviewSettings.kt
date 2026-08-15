@@ -53,7 +53,7 @@ class CodeReviewSettings : Configurable {
     override fun apply() {
         val settings = SettingsPersistence.getInstance()
         settings.updateRules(table.getAllRules())
-        this.modified = false;
+        this.modified = false
     }
 
     override fun reset() {
