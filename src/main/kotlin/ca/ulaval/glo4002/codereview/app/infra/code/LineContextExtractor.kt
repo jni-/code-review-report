@@ -1,8 +1,9 @@
 package ca.ulaval.glo4002.codereview.app.infra.code
 
 import ca.ulaval.glo4002.codereview.app.model.LineCommentContext
-import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.util.Computable
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
@@ -31,7 +32,7 @@ class LineContextExtractor {
         }
 
         private fun getSnippet(document: Document, logicalStartLine: Int, logicalEndLine: Int): String =
-            ReadAction.compute<String, RuntimeException> {
+            ApplicationManager.getApplication().runReadAction(Computable {
                 val snippetStart = (logicalStartLine - 1 - LineCommentContext.SNIPPET_RANGE_AROUND)
                     .coerceAtLeast(0)
                     .let(document::getLineStartOffset)
@@ -42,7 +43,7 @@ class LineContextExtractor {
                 TextRange.from(snippetStart, snippetEnd - snippetStart)
                     .let(document::getText)
                     .let(::prettifySnippet)
-            }
+            })
 
         private fun prettifySnippet(text: String): String {
             return text.lines()

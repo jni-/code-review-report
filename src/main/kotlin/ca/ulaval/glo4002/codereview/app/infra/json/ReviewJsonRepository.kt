@@ -4,10 +4,10 @@ import ca.ulaval.glo4002.codereview.app.model.Review
 import ca.ulaval.glo4002.codereview.bus.ReviewChangedListener
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Computable
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.io.await
@@ -52,13 +52,13 @@ class ReviewJsonRepository(
         val file = getReviewFile()?.await()
 
         // Document access requires a read action; the EDT no longer has implicit read access.
-        val text = ReadAction.compute<String?, RuntimeException> {
+        val text = ApplicationManager.getApplication().runReadAction(Computable {
             if (file != null && file.isValid && file.exists()) {
                 FileDocumentManager.getInstance().getDocument(file)?.text
             } else {
                 null
             }
-        }
+        })
 
         review = if (!text.isNullOrEmpty()) {
             mapper.readValue(text, ReviewDto::class.java).toReview(project)

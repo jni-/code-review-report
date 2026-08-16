@@ -1,5 +1,6 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
 
 fun properties(key: String) = providers.gradleProperty(key)
 fun environment(key: String) = providers.environmentVariable(key)
@@ -43,6 +44,11 @@ dependencies {
 // Set the JVM language level used to build the project. Use Java 11 for 2020.3+, and Java 17 for 2022.2+.
 kotlin {
     jvmToolchain(21)
+    compilerOptions {
+        // Don't generate compatibility bridges for Java default methods (e.g. ToolWindowFactory):
+        // the bridges count as usages of deprecated/experimental platform API in the plugin verifier.
+        jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
+    }
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
